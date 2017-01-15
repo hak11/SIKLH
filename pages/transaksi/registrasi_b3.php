@@ -1,3 +1,26 @@
+<?php
+
+//START PREPARE DATA
+
+$master_data_transaksi = mysql_query("SELECT * FROM `master_perusahaan`");
+$data_master_perusahaan = mysql_query("SELECT * FROM `master_perusahaan`");
+$data_master_pelabuhan = mysql_query("SELECT * FROM `master_pelabuhan` LIMIT 5");
+$data_master_negara = mysql_query("SELECT * FROM `master_negara`  LIMIT 5");
+$data_master_b3 = mysql_query("SELECT id,name_b3 FROM `master_b3` LIMIT 5");
+while($row=mysql_fetch_array($data_master_b3)){
+    $master_b3[]=$row;
+}
+
+while($row=mysql_fetch_array($data_master_negara)){
+    $master_negara[]=$row;
+}
+
+while($row=mysql_fetch_array($data_master_pelabuhan)){
+    $master_pelabuhan[]=$row;
+}
+//END PREPARE DATA
+?>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -17,7 +40,8 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="data_baru">
-                        <!--                       START DATA BARU -->
+                        <form action="./pages/transaksi/tambahRegis.php" method="POST">
+                        <!--                       START TAMBAH DATA BARU -->
                         <div class="row clearfix"><?php include "alert/alert.php"; ?>
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
@@ -25,9 +49,7 @@
                                         <label class="form-label">Nama Perusahaan</label>
                                         <select class="form-control show-tick" data-live-search="true">
                                             <?php
-                                            include "db/koneksi.php";
-                                            $hasil = mysql_query("SELECT * FROM `master_perusahaan`");
-                                            while ($data = mysql_fetch_array($hasil)) {
+                                            while ($data = mysql_fetch_array($data_master_perusahaan)) {
                                                 echo "
 											<option value='" . $data['id_perusahaan'] . "'>" . $data['nama_perusahaan'] . "</option>";
                                                 # code...
@@ -50,9 +72,6 @@
                                                    id="tanggal_berlaku" readonly="">
                                         </div>
                                     </div>
-
-                                    Disini Tampilan tabel dari form isian B3
-                                    Disini tombol add dan hapus
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-group">
@@ -82,10 +101,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="pull-right">
-                                    <div class="btn btn-success waves-effect">Tambah Data</div>
-                                </div>
-                                <div class="body table-responsive">
+                                <div class="table-responsive" style="overflow-x:auto;">
                                     <hr/>
                                     <table class="table table-striped">
                                         <thead>
@@ -99,21 +115,59 @@
                                             <th>Pelabuhan Bongkar</th>
                                             <th>Nomor HS</th>
                                             <th>Nomor Registrasi</th>
-                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody id="table-dagang">
+                                        <?php
+                                        for($i=1; $i<=10; $i++ ){
+
+                                            ?>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Metanol</td>
-                                            <td>Metanol</td>
-                                            <td>10</td>
-                                            <td>120</td>
-                                            <td>Singapore</td>
+                                            <th scope="row"><?php echo $i ?></th>
                                             <td>
-                                                <div class="btn btn-danger waves-effect">Hapus</div>
+                                                <select name="namabe3[]" class="form-control" placeholder="Nama B3">
+                                                    <option value="">Pilih B3</option>
+                                                <?php
+                                                foreach($master_b3 as $data){
+                                                ?>
+                                                    <option value="<?php echo $data['id'] ?>"><?php echo $data['name_b3'] ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                                </select>
                                             </td>
+                                            <td><input type="text" name="namaDagang[]"  class="form-control" placeholder="Nama Dagang"></td>
+                                            <td><input type="text" name="jmlImport[]"  class="form-control" placeholder="Jml Import"></td>
+                                            <td><input type="text" name="jmlImportTahunan[]"  class="form-control" placeholder="Jml/Thn"</td>
+                                            <td>
+                                                <select name="negara[]"  class="form-control" placeholder="Negara Asal">
+                                                    <option value="">Negara</option>
+                                                    <?php
+                                                    foreach($master_negara as $data){
+                                                        ?>
+                                                        <option value="<?php echo $data['kode_negara'] ?>"><?php echo $data['nama_negara'] ?></option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            <td>
+
+                                                <select name="pelabuhan[]"  class="form-control" placeholder="Pelabuhan Bongkar">
+                                                    <option value="">Pelabuhan</option>
+                                                    <?php
+                                                    foreach($master_pelabuhan as $data){
+                                                        ?>
+                                                        <option value="<?php echo $data['id_pelabuhan'] ?>"><?php echo $data['kode_pelabuhan'] ?></option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            <td><input type="text" name="nomorHS[]"  class="form-control" placeholder="Nomor HS"></td>
+                                            <td><input type="text" name="nomorReg[]"  class="form-control" placeholder="Nomor Register"></td>
                                         </tr>
+                                        <?php
+                                        }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -123,7 +177,8 @@
                                 <button type="submit" class="btn btn-primary waves-effect">SUBMIT</button>
                             </div>
                         </div>
-                        <!--                       END DATA BARU-->
+                        <!--                       END TAMBAH DATA BARU-->
+                        </form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="daftar_b3">
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -151,9 +206,7 @@
                             </tfoot>
                             <tbody>
                             <?php
-                            include "database/koneksi.php";
-                            $result = mysql_query("SELECT * FROM `master_perusahaan`");
-                            while ($list = mysql_fetch_array($result)) {
+                            while ($list = mysql_fetch_array($master_data_transaksi)) {
                                 echo "
 									<tr>
 										<td>" . $list['nama_perusahaan'] . "</td>
