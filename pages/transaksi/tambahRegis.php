@@ -21,7 +21,7 @@ if(mysql_query($queryMain)){
             $jmlImport = $_POST['jmlImport'][$key];
             $jmlImportTahunan = $_POST['jmlImportTahunan'][$key];
             $id_negara = $_POST['negara'][$key];
-            $id_pelabuhan = $_POST['pelabuhan'][$key];
+            $id_pelabuhan = implode(',',$_POST['pelabuhan'][$key]);
             $nomorHS = $_POST['nomorHS'][$key];
             $nomorReg = $_POST['nomorReg'][$key];
 

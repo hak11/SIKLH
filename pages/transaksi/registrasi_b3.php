@@ -139,57 +139,14 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                         </tr>
                                         </tfoot>
                                         <tbody id="table-dagang">
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>
-                                                <select name="namabe3[]" class="form-control" placeholder="Nama B3" required>
-                                                    <option value="">Pilih B3</option>
-                                                    <?php
-                                                    foreach($master_b3 as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data['id'] ?>"><?php echo $data['name_b3'] ?></option>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" name="namaDagang[]"  class="form-control" placeholder="Nama Dagang" required></td>
-                                            <td><input type="text" name="jmlImport[]"  class="form-control" placeholder="Jml Import" required style="max-width: 100px;"></td>
-                                            <td><input type="text" name="jmlImportTahunan[]"  class="form-control" placeholder="Jml/Thn" required style="max-width: 100px;"></td>
-                                            <td>
-                                                <select name="negara[]"  class="form-control" placeholder="Negara Asal" required>
-                                                    <option value="">Negara</option>
-                                                    <?php
-                                                    foreach($master_negara as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data['kode_negara'] ?>"><?php echo $data['nama_negara'] ?></option>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            <td>
-
-                                                <select name="pelabuhan[]"  class="form-control" placeholder="Pelabuhan Bongkar" required>
-                                                    <option value="">Pelabuhan</option>
-                                                    <?php
-                                                    foreach($master_pelabuhan as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data['id_pelabuhan'] ?>"><?php echo $data['kode_pelabuhan'] ?></option>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            <td><input type="text" name="nomorHS[]"  class="form-control" placeholder="Nomor HS" required></td>
-<!--                                            <td><input type="text" name="nomorReg[]"  class="form-control" placeholder="Nomor Register" required></td>-->
-                                        </tr>
                                         <?php
-                                        for($i=2; $i<=5; $i++ ){
+                                        for($i=1; $i<=5; $i++ ){
 
                                             ?>
                                         <tr>
                                             <th scope="row"><?php echo $i ?></th>
                                             <td>
-                                                <select name="namabe3[]" class="form-control" placeholder="Nama B3">
+                                                <select name="namabe3[]" class="form-control show-tick" data-live-search="true" placeholder="Nama B3">
                                                     <option value="">Pilih B3</option>
                                                 <?php
                                                 foreach($master_b3 as $data){
@@ -204,7 +161,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                             <td><input type="text" name="jmlImport[]"  class="form-control" placeholder="Jml Import"  style="max-width: 100px;"></td>
                                             <td><input type="text" name="jmlImportTahunan[]"  class="form-control" placeholder="Jml/Thn"  style="max-width: 100px;"></td>
                                             <td>
-                                                <select name="negara[]"  class="form-control" placeholder="Negara Asal">
+                                                <select name="negara[]"  class="form-control show-tick" data-live-search="true"  placeholder="Negara Asal">
                                                     <option value="">Negara</option>
                                                     <?php
                                                     foreach($master_negara as $data){
@@ -216,7 +173,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                                 </select>
                                             <td>
 
-                                                <select name="pelabuhan[]"  class="form-control" placeholder="Pelabuhan Bongkar">
+                                                <select name="pelabuhan[<?php echo $i-1 ?>][]"  class="form-control show-tick" multiple data-live-search="true" placeholder="Pelabuhan Bongkar">
                                                     <option value="">Pelabuhan</option>
                                                     <?php
                                                     foreach($master_pelabuhan as $data){
