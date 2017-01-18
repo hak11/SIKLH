@@ -36,6 +36,11 @@
 				include 'pages/transaksi/registrasi_b3.php';
 				# code...
 				break;
+
+			case 'detailb3':
+				include 'pages/transaksi/details_b3.php';
+				# code...
+				break;
 			
 			case 'edit_b3':
 				include 'pages/master/edit_b3.php';

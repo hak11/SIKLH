@@ -122,7 +122,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                             <th>Negara Asal</th>
                                             <th>Pelabuhan Bongkar</th>
                                             <th>Nomor HS</th>
-<!--                                            <th>Nomor Registrasi</th>-->
+                                            <th>Nomor Registrasi</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -135,7 +135,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                             <th>Negara Asal</th>
                                             <th>Pelabuhan Bongkar</th>
                                             <th>Nomor HS</th>
-                                            <!--                                            <th>Nomor Registrasi</th>-->
+                                            <th>Nomor Registrasi</th>
                                         </tr>
                                         </tfoot>
                                         <tbody id="table-dagang">
@@ -166,7 +166,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                                     <?php
                                                     foreach($master_negara as $data){
                                                         ?>
-                                                        <option value="<?php echo $data['kode_negara'] ?>"><?php echo $data['nama_negara'] ?></option>
+                                                        <option value="<?php echo $data['id_negara'] ?>"><?php echo $data['nama_negara'] ?></option>
                                                         <?php
                                                     }
                                                     ?>
@@ -184,7 +184,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                                                     ?>
                                                 </select>
                                             <td><input type="text" name="nomorHS[]"  class="form-control" placeholder="Nomor HS"></td>
-<!--                                            <td><input type="text" name="nomorReg[]"  class="form-control" placeholder="Nomor Register"></td>-->
+                                            <td><input type="text" name="nomorReg[]"  class="form-control" placeholder="Nomor Register"></td>
                                         </tr>
                                         <?php
                                         }
@@ -202,48 +202,7 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="daftar_b3">
-                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                            <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>No Reg</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Tangggal Surat</th>
-                                <th>Aksi</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>No Reg</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Tangggal Surat</th>
-                                <th>Aksi</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <?php
-                            $nomer = 1;
-                            while ($list = mysql_fetch_array($master_data_transaksi)) {
-                                echo "
-									<tr>
-										<td>" . $nomer . "</td>
-										<td>" . $list['no_regis'] . "</td>
-										<td>" . $list['nama_perusahaan'] . "</td>
-										<td>" . $list['ltr_dtstart'] . "</td>
-										<td>
-										    <a class='btn btn-default' href='#'>Lihat</a>
-										    <a class='btn btn-danger' href='#' onClick='return warning()'>Hapus</a>
-										</td>
-									</tr>
-									";
-                                # code...
-                                $nomer++;
-                            }
-
-                            ?>
-                            </tbody>
-                        </table>
+                        <?php require "laporan_b3.php" ?>
                     </div>
                 </div>
             </div>
