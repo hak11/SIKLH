@@ -2,9 +2,9 @@
 require "../../database/koneksi.php";
 $id_perusahaan = $_POST['kode_perusahaan'];
 $no_surat_regis = $_POST['no_surat_regis'];
-$tanggal_berlaku = date("Y-m-d", strtotime($_POST['tanggal_berlaku']));
-$ltr_dtstart = date("Y-m-d", strtotime($_POST['ltr_dtstart']));
-$ltr_dtend = date("Y-m-d", strtotime($_POST['ltr_dtend']));
+$tanggal_berlaku = date("Y-m-d", strtotime(str_replace('/', '-', $_POST['tanggal_berlaku'])));
+$ltr_dtstart = date("Y-m-d", strtotime(str_replace('/', '-', $_POST['ltr_dtstart'])));
+$ltr_dtend = date("Y-m-d", strtotime(str_replace('/', '-', $_POST['ltr_dtend'])));
 $ltr_duration = $_POST['ltr_duration'];
 $created_at = date('Y-m-d');
 $queryMain = "INSERT INTO transaksi_registerb3 (`id_perusahaan`,`no_surat_regis`,`tanggal_berlaku`,`ltr_dtstart`,`ltr_dtend`,`ltr_duration`,`created_at`)
@@ -33,7 +33,8 @@ if(mysql_query($queryMain)){
             }
             $key++;
         }
-        header('Location: ../../index.php?halaman=registrasi_b3');
+        echo "<script type='text/javascript'>alert('Data Berhasil Ditambahkan');</script>";
+        echo "<script type='text/javascript'>document.location.href = '../../index.php?halaman=registrasi_b3';</script>";
     }
 } else {
     echo "Terdapat Kesalahan";

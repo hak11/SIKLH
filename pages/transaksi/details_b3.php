@@ -1,5 +1,9 @@
 <?php
 $id_register=$_GET['id'];
+if(!$id_register){
+    header('Location: ../../index.php?halaman=registrasi_b3');
+    exit();
+}
 $queryDetail1 = "SELECT
 transaksi_registerb3.*,
 master_perusahaan.*

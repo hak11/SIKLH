@@ -29,7 +29,7 @@
 										<td>" . $list['ltr_dtstart'] . "</td>
 										<td>
 										    <a class='btn btn-default' href='index.php?halaman=detailb3&id=".$list['id_register']."'>Lihat</a>
-										    <a class='btn btn-danger' href='#' onClick='return warning()'>Hapus</a>
+										    <a class='btn btn-danger' href='pages/transaksi/delete_b3.php?id=".$list['id_register']."' onClick='return warning()'>Hapus</a>
 										</td>
 									</tr>
 									";
