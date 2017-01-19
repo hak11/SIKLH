@@ -197,7 +197,17 @@ $detailBarang = mysql_query($queryBarang);
                                 <td><?php echo $dataDetails['jmlImport'] ?></td>
                                 <td><?php echo $dataDetails['jmlImportTahunan'] ?></td>
                                 <td><?php echo $dataDetails['nama_negara'] ?></td>
-                                <td><?php echo $dataDetails['id_pelabuhan'] ?></td>
+                                <td>
+                                    <?php
+                                    $pelabuhan = explode(',',$dataDetails['id_pelabuhan']);
+                                    foreach($pelabuhan as $value){
+                                        $queryPanggilPelabuhan = "select * from master_pelabuhan where id_pelabuhan='$value'";
+                                        $detailPelabuhan = mysql_fetch_array(mysql_query($queryPanggilPelabuhan));
+                                        echo strtoupper($detailPelabuhan['nama_pelabuhan']);
+                                        echo "<hr />";
+                                    }
+                                    ?>
+                                </td>
                                 <td><?php echo $dataDetails['nomerHS'] ?></td>
                                 <td><?php echo $dataDetails['nomerReg'] ?></td>
                             </tr>
