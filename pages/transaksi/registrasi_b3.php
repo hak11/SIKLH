@@ -1,6 +1,9 @@
 <?php
-
-//START PREPARE DATA
+$levelUser = $_SESSION['level_user'];
+if ($levelUser == "Manager") {
+  require 'dashboard_manager.php';
+} else {
+  //START PREPARE DATA
 $query_report = "select
                 transaksi_registerb3.id_register as id_register,
                 master_perusahaan.nama_perusahaan as nama_perusahaan,
@@ -208,6 +211,10 @@ while($row=mysql_fetch_array($data_master_pelabuhan)){
             </div>
         </div>
     </div>
+
+<?php
+}
+?>
     <script type="text/javascript">
         function hide() {
             document.getElementById("ltr_dtstart").readOnly = true;

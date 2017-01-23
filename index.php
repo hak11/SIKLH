@@ -1,10 +1,11 @@
-<?php 
+<?php
     session_start();
     include "database/koneksi.php";
     if ( !isset($_SESSION['sign-in']) || $_SESSION['sign-in'] !== true) {
     header('Location: sign-in.php');
     exit;
     } else {
+    $levelUser = $_SESSION['level_user'];
  ?>
 
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
 
     <!-- Animation Css -->
     <link href="plugins/animate-css/animate.css" rel="stylesheet" />
-    
+
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
@@ -42,7 +43,7 @@
 
     <!-- Bootstrap Select Css -->
     <link href="plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-    
+
 
     <!-- JQuery DataTable Css -->
     <link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
@@ -110,9 +111,16 @@
                     <li class="header">MAIN NAVIGATION</li>
                         <a href="index.php?halaman=halaman_utama">
                             <i class="material-icons">home</i>
-                            <span>Halaman Utama</span>
+                            <?php
+                            if ($levelUser == "Manager") {
+                              echo "<span>Report Register</span>";
+                            } else {
+                              echo "<span>Halaman Utama</span>";
+                            }
+                            ?>
                         </a>
                     </li>
+                    <?php if ($levelUser == "Admin" || $levelUser == "Staff"){ ?>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">swap_calls</i>
@@ -125,6 +133,9 @@
                             <li>
                                 <a href="index.php?halaman=master_perusahaan">Master Perusahaan</a>
                             </li>
+                            <?php
+                            if ($levelUser == "Admin") {
+                            ?>
                             <li>
                                 <a href="index.php?halaman=master_pelabuhan">Master Pelabuhan</a>
                             </li>
@@ -134,6 +145,9 @@
                             <li>
                                 <a href="index.php?halaman=master_user">Master User</a>
                             </li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                     </li>
                     <li>
@@ -147,6 +161,7 @@
                             </li>
                         </ul>
                     </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -163,7 +178,9 @@
 
     <section class="content">
         <div class="container-fluid">
-            <?php include "halaman.php"; ?>
+            <?php
+              include "halaman.php";
+            ?>
         </div>
     </section>
 
@@ -209,8 +226,8 @@
 
     <!-- Demo Js -->
     <script src="js/demo.js"></script>
-    
-    
+
+
 </body>
 
 </html>
